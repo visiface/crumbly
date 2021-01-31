@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 function emptyInputSignup($username, $email, $password, $passwordRepeat) {
 
@@ -116,9 +117,8 @@ function loginUser($conn, $username, $password) {
     exit();
   } 
   else if ($checkPassword === true) {
-    session_start();
-    $_SESSION["userid"] =  $usernameExists["usersID"];
-    $_SESSION["userUsername"] =  $usernameExists["usersUsername"];
+    $_SESSION["usersID"] =  $usernameExists["usersID"];
+    $_SESSION["usersUsername"] =  $usernameExists["usersUsername"];
     header("location: ../index.php");
     exit();
   }

@@ -1,4 +1,14 @@
-<?php global $page_title; ?>
+<?php 
+  session_start();
+  global $page_title; 
+
+  if ( isset($_GET["logout"]) && $_GET["logout"] === 'true' ) {
+    unset($_SESSION["usersID"]);
+    unset($_SESSION["usersUsername"]);
+    
+    header("location: ./index.php");
+  }
+?>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,7 +20,7 @@
 <body>
   <a name="top"></a>
 
-<?php
+  <?php
     $links = array(
       'index' => 'Home',
       'recipes' => 'Recipes',
@@ -36,12 +46,30 @@
 
           <div class="main-nav">
             <div class="nav-left">  
+            
+              <?php if( isset($_SESSION["usersUsername"]) ){ ?>
+                <div class="username">
+                  <?= $_SESSION["usersUsername"]; ?> ( ID: <?= $_SESSION["usersID"]; ?> )
+                </div>
+              <?php } ?>
 
               <ul class="no-bullets">
-                <?php foreach($links as $link_key => $link_value){ ?>
+                <?php foreach($links as $link_key => $link_value){ 
+                  if( isset($_SESSION["usersID"]) && ( $link_key === 'signup' || $link_key === 'login' ) ){ 
+                    // do nothing
+                  } else { ?>
+                    <li>
+                      <a href="<?= $link_key; ?>.php">
+                        <?= $link_value; ?>
+                      </a>
+                    </li>
+                  <?php } ?>
+                <?php } ?>
+
+                <?php if( isset($_SESSION["usersID"]) ){ ?>
                   <li>
-                    <a href="<?= $link_key; ?>.php">
-                      <?= $link_value; ?>
+                    <a href="index.php?logout=true" onclick="">
+                      Logout
                     </a>
                   </li>
                 <?php } ?>
