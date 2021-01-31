@@ -91,6 +91,69 @@ function createUser($conn, $username, $email, $password) {
 
 }
 
+
+function removeComment($data) {
+  global $conn;
+
+  if( isset($_SESSION["usersID"]) === FALSE ){
+    header("location: ../profile.php?error=notLoggedIn");
+    exit();
+  }    
+
+  $sql = sprintf(
+    "DELETE FROM 
+      comments 
+    WHERE 
+      ID = %d
+    AND
+      usersID = %d",
+    $data['comment_ID'],
+    $_SESSION["usersID"]
+  );
+      
+  $statement = mysqli_stmt_init($conn);
+
+  if (!mysqli_stmt_prepare($statement, $sql)) {
+    header("location: ../profile.php?error=stmtFailed");
+    exit();
+  }
+
+  $result = mysqli_stmt_execute($statement);
+  mysqli_stmt_close($statement);
+
+  return $result;
+
+}
+
+
+function addComment($data) {
+  global $conn;
+
+  if( isset($_SESSION["usersID"]) === FALSE ){
+    header("location: ../profile.php?error=notLoggedIn");
+    exit();
+  }    
+
+  $sql = "INSERT INTO 
+      comments (comment, usersID, usersProfileID)
+    VALUES
+      ('{$data['comment']}', {$_SESSION["usersID"]}, {$data['usersProfileID']})";
+      
+  $statement = mysqli_stmt_init($conn);
+
+  if (!mysqli_stmt_prepare($statement, $sql)) {
+    header("location: ../profile.php?error=stmtFailed");
+    exit();
+  }
+
+  // mysqli_stmt_bind_param($statement, "sss", $username, $email, $hashedPassword);
+  $result = mysqli_stmt_execute($statement);
+  mysqli_stmt_close($statement);
+
+  return $result;
+
+}
+
 function updateUser($data) {
   global $conn;
 
@@ -149,7 +212,7 @@ function updateUser($data) {
     exit();
   }
 
-  mysqli_stmt_bind_param($statement, "sss", $username, $email, $hashedPassword);
+  // mysqli_stmt_bind_param($statement, "sss", $username, $email, $hashedPassword);
   $result = mysqli_stmt_execute($statement);
   mysqli_stmt_close($statement);
 
