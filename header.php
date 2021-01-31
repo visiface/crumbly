@@ -49,7 +49,9 @@
             
               <?php if( isset($_SESSION["usersUsername"]) ){ ?>
                 <div class="username">
-                  <?= $_SESSION["usersUsername"]; ?> ( ID: <?= $_SESSION["usersID"]; ?> )
+                  <a href="profile.php">
+                    <?= $_SESSION["usersUsername"]; ?>
+                  </a>
                 </div>
               <?php } ?>
 

@@ -17,6 +17,7 @@ html {
 
   --primary-txt-color: #161413;
   --secondary-txt-color: #423636;
+  --tertiary-txt-color:#754a47;
   --hover-txt-color: #fadbcc;
 }
 
@@ -114,5 +115,9 @@ nav {
 .spacer {
   flex: 1;
   position: relative;
+}
+
+.username>a, .username>a:hover {
+  color: var(--tertiary-txt-color) !important;
 }
 /* END navbar */
