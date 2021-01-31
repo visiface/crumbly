@@ -47,6 +47,22 @@ header {
   margin: 0 auto;
 }
 
+.font-sans {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.font-robo {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-mont {
+  font-family: 'Montserrat', sans-serif;
+}
+
+.font-lora {
+  font-family: 'Lora', serif;
+}
+
 /* START navbar */  
 nav {
   background-color: var(--primary-banner-color);
@@ -96,14 +112,14 @@ nav {
 .main-nav a {
   text-decoration: none;
   padding: 0px 12px;
-  color: var(--secondary-txt-color) !important;
+  color: var(--secondary-txt-color);
   cursor: pointer;
 
   /* color:rgb(48, 48, 48, 0.7); */
 }
 
 .main-nav a:hover {
-  color: var(--hover-txt-color) !important;
+  color: var(--hover-txt-color);
 }
 
 .spacer {
@@ -111,8 +127,15 @@ nav {
   position: relative;
 }
 
-.username>a, .username>a:hover {
-  color: var(--tertiary-txt-color) !important;
+.comment .username a,
+.username a
+ {
+  color: var(--tertiary-txt-color);
+  text-decoration: none;
+}
+
+.comment .username a:hover {
+  color: #a06a66;
 }
 /* END navbar */
 
@@ -124,13 +147,13 @@ nav {
   max-width: 180px;
   min-height: 200px;
   padding: 24px;
+  text-align: center;
 }
 
 .profile-info {
   background-color: rgba(177, 160, 139, 0.40);
   padding: 24px;
-  margin-left: 12px;
-  min-width: 800px;
+  width: 100%;
   min-height: 200px;
 }
 
@@ -141,6 +164,10 @@ nav {
   margin: 12px 0px;
 }
 
+.profile-title {
+  color: var(--primary-txt-color);
+}
+
 .rounded {
   border-radius: 12px;
 }
@@ -148,12 +175,23 @@ nav {
 .comment-container {
   background-color: rgba(177, 160, 139, 0.20);
   padding: 24px;
-  width: 975px;
+  width: 100%;
+}
+
+.comment-date {
+  color: rgba(66, 54, 54, 0.4);
+
+}
+
+.user-comment {
+  padding: 12px 0px;
+  color: var(--primary-txt-color);
 }
 
 .avatar {
   width:100px;
   height:100px;
+  margin: 0 auto;
 }
 
 .avatar > img {
@@ -161,5 +199,9 @@ nav {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+}
+
+.username {
+ color: var(--tertiary-txt-color);
 }
 /* END profile */

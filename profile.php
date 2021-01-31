@@ -27,11 +27,12 @@
                 <img src="img/avatars/<?= ( $obj->avatar ?? 'placeholder.jpg' ); ?>">
               </div>
 
-              <div class="username">
-                <?= $obj->usersUsername; ?> (ID: <?= $obj->usersID; ?>)
+              <div class="username font-mont">
+                <?= $obj->usersUsername; ?>
               </div>
               
-              <div class="email">
+              <div class="email font-sans">
+                ID: <?= $obj->usersID; ?>
                 <?= $obj->usersEmail; ?>
               </div>
             </div>
@@ -40,7 +41,7 @@
             <?php if( isset($_SESSION["usersID"]) && $_SESSION["usersID"] == $obj->usersID ){ ?>
             
               <div class="profile-info rounded">
-                <h2>Edit profile</h2>
+                <h2 class="profile-title font-mont">Edit profile</h2>
                 <form action="includes/edit.inc.php" method="post" enctype="multipart/form-data">
                   <input type="file" name="avatar">
                   <input type="email" name="email" placeholder="email">
@@ -54,7 +55,7 @@
             
           </div>
 
-          <h2>User comments</h2>
+          <h2 class="profile-title font-mont">User comments</h2>
           <!-- User comments -->
           <?php
             $sql = "SELECT 
@@ -80,8 +81,9 @@
                     <div class="profile-container">
                       <div class="comment-container rounded">
 
-                        <?php if( isset($_SESSION["usersID"]) ){ ?>
-                          <form action="includes/comment.inc.php" method="post">
+                        <!-- remove comments but ONLY from your own page -->
+                        <?php if( isset($_SESSION["usersID"]) && $_SESSION["usersID"] == $obj->usersID ){ ?>
+                          <form action="includes/comment.inc.php" method="post" class="remove-comment">
                             <input type="hidden" name="form" value="remove_comment">
                             <input type="hidden" name="comment_ID" value="<?= $comment->ID; ?>">
                             <button type="submit" name="submit">Remove Comment</button>
@@ -89,13 +91,23 @@
                         <?php } ?>
 
                         <div class="comment <?= ( $comment->usersID == $obj->usersID ? 'current-user' : '' ); ?>" id="<?= $comment->ID; ?>">
-                          <div class="username">
-                            <?= $comment->usersUsername; ?>
+                          
+                          <div class="nav-left">
+                            <div class="username font-mont">
+                              <h4>
+                                From: <a href="<?= "{$_SERVER['REQUEST_URI']}?user_ID={$comment->usersID}" ?>"><?= $comment->usersUsername; ?></a>
+                              </h4>
+                            </div>
+
+                            <div class="spacer"></div>
+
+                            <div class="comment-date font-sans">
+                              Posted: <?= $comment->date; ?>
+                            </div>
                           </div>
-                          <div class="comment-date">
-                            <?= $comment->date; ?>
-                          </div>
-                          <div class="user-comment">
+
+
+                          <div class="user-comment font-sans">
                             <?= $comment->comment; ?>
                           </div>
                         </div>
@@ -110,16 +122,16 @@
             }
           ?>
 
-          <!-- Only shown if user is viewing their own page -->
+          <!-- must be logged in to add a comment -->
             <?php if( isset($_SESSION["usersID"]) ){ ?>
             
               <div class="profile-info rounded">
-                <h2>Edit profile</h2>
+                <h4 class="profile-title font-mont">Add a Comment</h4>
                 <form action="includes/comment.inc.php" method="post">
                   <input type="hidden" name="form" value="add_comment">
                   <input type="hidden" name="usersProfileID" value="<?= $obj->usersID; ?>">
                   <textarea name="comment" rows="4" cols="50"></textarea>
-                  <button type="submit" name="submit">Save</button>
+                  <button type="submit" name="submit">add comment</button>
                 </form>
               </div>
 
