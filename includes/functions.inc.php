@@ -1,10 +1,5 @@
 <?php
 
- if (emptyInputSignup($username, $email, $password, $passwordRepeat) !==false) {
-    header("location: ../signup.php?error=emptyinput");
-    exit();
-  }
-
 function emptyInputSignup($username, $email, $password, $passwordRepeat) {
 
   if (empty($username) || empty($email) || empty($password) || empty($passwordRepeat)) {
@@ -93,4 +88,38 @@ function createUser($conn, $username, $email, $password) {
   header("location: ../signup.php?error=none");
     exit();
 
+}
+
+function emptyInputLogin($username, $password) {
+
+  $result = false;
+  if ( empty($username) || empty($password) ) {
+    $result = true;
+  }
+  
+  return $result;
+}
+
+function loginUser($conn, $username, $password) {
+  $usernameExists = usernameTaken($conn, $username, $username);
+
+  if ($usernameExists === false) {
+    header("location: ../login.php?error=wronglogin");
+    exit();
+  }
+
+  $passwordHashed = $usernameExists["usersPassword"];
+  $checkPassword = password_verify($password, $passwordHashed);
+
+  if ($checkPassword === false) {
+    header("location: ../login.php?error=wrongloginpassword");
+    exit();
+  } 
+  else if ($checkPassword === true) {
+    session_start();
+    $_SESSION["userid"] =  $usernameExists["usersID"];
+    $_SESSION["userUsername"] =  $usernameExists["usersUsername"];
+    header("location: ../index.php");
+    exit();
+  }
 }
