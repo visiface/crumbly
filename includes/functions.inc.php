@@ -80,7 +80,7 @@ function createUser($conn, $username, $email, $password) {
     exit();
   }
 
-  $hashedPassword = $password; //password_hash($password, PASSWORD_DEFAULT);
+  $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
   mysqli_stmt_bind_param($statement, "sss", $username, $email, $hashedPassword);
   mysqli_stmt_execute($statement);
