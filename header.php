@@ -1,5 +1,8 @@
 <?php 
   session_start();
+
+  require_once 'includes/dbh.inc.php';
+
   global $page_title; 
 
   if ( isset($_GET["logout"]) && $_GET["logout"] === 'true' ) {

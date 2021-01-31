@@ -7,6 +7,7 @@ $dBUsername = "root";
 $dBPassword = "";
 $dBName = "crumbly";
 
+global $conn;
 $conn = mysqli_connect($serverName, $dBUsername, $dBPassword, $dBName);
 
 if(!$conn) {
