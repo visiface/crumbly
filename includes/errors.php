@@ -23,11 +23,7 @@
         break;
       
       case "wronglogin":
-        echo "This username or email does not match our database. Double-check your case sensitive and special characters.";
-        break;
-      
-      case "wrongloginpassword":
-        echo "This password does not match our database. Double-check your case sensitive and special characters.";
+        echo "This login information does not match our database. Double-check your case sensitive and special characters.";
         break;
       
       case "none":
