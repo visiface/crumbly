@@ -27,6 +27,7 @@
     $links = array(
       'index' => 'Home',
       'recipes' => 'Recipes',
+      'members' => 'Bakers',
       'signup' => 'Sign Up',
       'login' => 'Login',
     );

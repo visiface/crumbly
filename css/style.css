@@ -33,6 +33,16 @@ html {
   text-align: center;
 }
 
+.no-txt-decor a {
+  text-decoration: none;
+  color: var(--secondary-txt-color);
+  cursor: pointer;
+}
+
+.no-txt-decor a:hover {
+  color: var(--tertiary-txt-color);
+}
+
 header {
   max-height: 100px;
   background-color: var(--primary-banner-color);
